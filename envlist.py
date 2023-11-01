@@ -40,21 +40,24 @@ lock = FileLock(lock_path, timeout=time_out_secs)
 
 with lock:
     if pmode == RESET_MODE:
-        # create a list (named clist) of nevns environments with the 
+        # create a list (named clist) of nevns environments with the
         # prefix envprefix
-        # add code here
+        clist1=[*range(0,int(nenvs),1)]
+        clist=[envprefix+str(s) for s in clist1]
     else:
         # load hickle file
         clist = hickle.load(file_path)
 
         if pmode == WRITE_MODE:
             # append item to end of list
-            # add code here
-        else:    
+            clist.append(env)
+        else:
             # get and remove env from clist
-            # add code here
+            env=clist.pop(0)
             # return env name
             print(env)
 
     # save hickle file
     hickle.dump(clist, file_path, mode="w")
+
+
